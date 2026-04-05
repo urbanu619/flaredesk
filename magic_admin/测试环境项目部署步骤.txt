@@ -1,0 +1,31 @@
+1.新建目录 mkdir juapp
+2.cd juapp 
+3.克隆项目 git clone https://hoeskullxiao:J1YY_FoUBXAaNsmxcqrn@gitlab-eco.jcworkint.com/halfsky/aicearn/aicearn-api.git
+4.新建pm2.json  Taskfile.yaml 两个文件
+  pm2.json 文件内容
+  {
+  "apps": [
+    {
+      "name": "juapp-server",
+      "script": "./juapp_server",
+      "cwd": "/data/juapp/juapp-server/build",
+      "args": " api"
+    }
+   ]
+  }
+  
+  Taskfile.yaml文件内容
+	version: '3'
+	tasks:
+	  api:
+		cmds:
+		  - cd /data/juapp/juapp-server
+			&& git pull
+			&& go mod tidy
+			&& task build
+			&& pm2 restart juapp-server
+5.执行命令 把 项目加到pm2的项目空间：pm2 start pm2.json
+6.进入juapp/build 执行文件 ./juapp_server config 生成配置文件
+7.修改配置文件的数据库帐号密码和redis的账号密码
+8.执行命令：./juapp_server migrate 与命令 ./juapp_server data 生成数据库表和初始化数据
+9.进入 juapp 目录 执行task api重启服务

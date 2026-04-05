@@ -1,0 +1,97 @@
+variables:
+  DOCKER_REGISTRY: 883669802837.dkr.ecr.ap-southeast-1.amazonaws.com
+  AWS_REGION: ap-southeast-1
+  KUBECONFIG_ENV: coinvex-eco-eks-test-01
+  DOCKER_ENV: coinvex-eco-test
+  MYSELF_NAMESPACE: magic
+  MYSELF_PROJECT_NAME: magic-admin-web
+
+stages:
+  - build
+  - deploy
+
+before_script:
+  - echo "Compiling the code..."
+  - echo "Compile complete."
+  - export
+  - pwd && ls -lhc
+  - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $DOCKER_REGISTRY
+  - |
+    source /data/.bash/set_build_env.sh
+    echo ">> >> >>"
+    echo -e "\033[1;33m-----------please check the following variables---------------------\033[0m"
+    echo -e "\033[1;32mDOCKER_ENV: $DOCKER_ENV\033[0m"
+    echo -e "\033[1;32mKUBECONFIG_ENV: $KUBECONFIG_ENV\033[0m"
+    echo -e "\033[1;33m----------- please confirm the variables before continue ------------\033[0m"
+    echo "<< << << "
+
+.build-template: &build-template
+  stage: build
+  script:
+    - echo "start build"
+    - docker build . -f $DOCKERFILE_PATH -t $DOCKER_REGISTRY/${DOCKER_ENV}/${MYSELF_NAMESPACE}:${IMAGE_TAG} --push --build-arg MYSELF_NAMESPACE=${MYSELF_PROJECT_NAME}SPACE --build-arg CI_PROJECT_NAME=${MYSELF_PROJECT_NAME} --build-arg CI_COMMIT_SHORT_SHA=$CI_COMMIT_SHORT_SHA --build-arg DOCKER_ENV=$DOCKER_ENV
+
+.deploy-template: &deploy-template
+  stage: deploy
+  script:
+    - kubectl --kubeconfig /root/.kube/${KUBECONFIG_ENV} config view -o jsonpath='{.users[*].name}'
+    - echo "start deploy"
+    - kubectl --kubeconfig /root/.kube/${KUBECONFIG_ENV} -n ${MYSELF_NAMESPACE} set image deployment/$DEPLOYMENT_NAME $DEPLOYMENT_NAME=$DOCKER_REGISTRY/${DOCKER_ENV}/${MYSELF_NAMESPACE}:$IMAGE_TAG
+
+
+####
+# test  pipeline
+####
+# -----------test-----------
+build-test:
+  <<: *build-template
+  variables:
+    DOCKERFILE_PATH: Dockerfile
+    IMAGE_TAG: ${MYSELF_PROJECT_NAME}-$CI_COMMIT_SHORT_SHA
+    # GIT_STRATEGY: none
+  rules:
+    - if: $CI_COMMIT_BRANCH != "main"
+      when: manual
+    - when: never
+
+deploy-test:
+  <<: *deploy-template
+  needs:
+    - build-test
+  variables:
+    DEPLOYMENT_NAME: ${MYSELF_PROJECT_NAME}
+    IMAGE_TAG: ${MYSELF_PROJECT_NAME}-$CI_COMMIT_SHORT_SHA
+    GIT_STRATEGY: none
+  rules:
+    - if: $CI_COMMIT_BRANCH != "main"
+      when: manual
+    - when: never
+
+
+####
+# prd  pipeline
+####
+# -----------prd-----------
+build-prd:
+  <<: *build-template
+  variables:
+    DOCKERFILE_PATH: Dockerfile
+    IMAGE_TAG: ${MYSELF_PROJECT_NAME}-$CI_COMMIT_SHORT_SHA
+    # GIT_STRATEGY: none
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: manual
+    - when: never
+
+deploy-prd:
+  <<: *deploy-template
+  needs:
+    - build-prd
+  variables:
+    DEPLOYMENT_NAME: ${MYSELF_PROJECT_NAME}
+    IMAGE_TAG: ${MYSELF_PROJECT_NAME}-$CI_COMMIT_SHORT_SHA
+    GIT_STRATEGY: none
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: manual
+    - when: never

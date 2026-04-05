@@ -1,0 +1,21 @@
+name: flaredesk
+displayName: "Flaredesk — Cloudflare DNS Manager"
+description: "Batch manage Cloudflare DNS records across multiple accounts and zones. Supports bulk create/delete, proxy toggle, cross-zone operations."
+version: "1.0.0"
+license: MIT
+homepage: "https://github.com/urbanu619/flaredesk"
+tags:
+  - cloudflare
+  - dns
+  - devops
+  - batch
+  - proxy
+
+startCommand:
+  type: stdio
+  command: node
+  args: ["dist/index.js"]
+  env:
+    CF_API_TOKEN:
+      description: "Your Cloudflare API Token (requires DNS edit permissions)"
+      required: true

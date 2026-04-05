@@ -1,0 +1,29 @@
+# OS
+.DS_Store
+
+# Config & secrets（.example 文件除外）
+magic_admin/conf.d/
+!magic_admin/conf.d/*.example
+magic_admin_web/.env*.local
+
+# MCP
+flaredesk-mcp/node_modules/
+flaredesk-mcp/dist/
+
+# Logs
+magic_admin/logs/
+magic_admin_web/logs/
+
+# Build outputs
+magic_admin/lucky_bot_admin
+magic_admin/build/
+magic_admin_web/dist/
+magic_admin_web/dist.zip
+magic_admin_web/node_modules/
+
+# Binary
+*.exe
+
+# IDE
+.idea/
+.vscode/

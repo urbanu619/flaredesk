@@ -1,0 +1,40 @@
+package app
+
+type ServiceGroup struct {
+	MagicAssetService
+	MagicAssetBillService
+	MagicAssetRwCallbackLogService
+	MagicAssetRwRecordService
+	MagicStakeProductService
+	MagicStakeQueueInfoService
+	MagicStakeUserCurrentOpsRecordService
+	MagicStakeUserCurrentOrderService
+	MagicUserService
+	MagicUserActionLogService
+	MagicUserLogsService
+	MagicUserProfitService
+	MagicUserProfitRecordService
+	MagicUserQuotaService
+	NodeBannerService
+	NodeInfoService
+	NodeOrderService
+	NodeOrderPaymentsService
+	PromotionUpgradeLevelService
+	SysCoinService
+	SysI18nService
+	SysJobService
+	SysLevelConfigService
+	SysSignConfigService
+	SysStakePeriodJobService
+	MagicExtraStakeOrderOpsRecordService
+	MagicExtraStakeOrderService
+	TgRedPacketConfigService
+	TgRedPacketSendService
+	TgRedPacketRecordService
+	TgGroupService
+	TgUserBindService
+	CfAccountService
+	CfDnsService
+	CfDnsTemplateService
+	CfZoneService
+}

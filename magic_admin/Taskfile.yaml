@@ -1,0 +1,36 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  server: fomo-pro-admin
+  outDir: ./build
+
+tasks:
+  run:
+    cmds:
+      - go run main.go api
+  api:
+    cmds:
+      - go run main.go api
+  config:
+    cmds:
+      - go run main.go config
+  migrate:
+    cmds:
+      - go run main.go migrate
+  genBiz:
+    cmds:
+      - go run main.go biz generate app all
+  rollbackBiz:
+    cmds:
+      - go run main.go biz rollback app all
+  updateBizModel:
+    cmds:
+      - go run main.go biz model app all
+  build:
+    cmds:
+      - CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o {{.outDir}}/{{.server}}
+
+
+
