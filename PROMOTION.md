@@ -68,7 +68,7 @@ npm：https://www.npmjs.com/package/flaredesk-mcp
 
 ---
 
-欢迎 Star，有问题开 Issue。做站群、搞出海、管大量域名的同学应该用得上。
+欢迎 Star，有问题开 Issue。做站群、搞出海业务、管大量域名的同学应该用得上。
 
 ---
 
@@ -91,8 +91,8 @@ npm：https://www.npmjs.com/package/flaredesk-mcp
 > GitHub: https://github.com/urbanu619/flaredesk
 > npm: https://www.npmjs.com/package/flaredesk-mcp
 
-### 目标行业圈（微信群/Telegram）
-针对博彩/游戏运维群，改成：
+### 目标圈子（微信群/Telegram）
+针对出海运维、多站点管理群，发：
 > 管几百个域名的工具，Cloudflare DNS 批量操作面板，开源自部署，数据在自己服务器上。
 > 跨域名批量改记录、橙云批量切换、DNS 模板一键套用。
-> [GitHub 链接]
+> https://github.com/urbanu619/flaredesk
