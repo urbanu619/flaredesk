@@ -138,31 +138,61 @@ server {
 
 ## MCP Server（AI 工具集成）
 
-在 Claude Desktop / Cursor 等支持 MCP 的 AI 工具中直接管理 DNS：
+[![npm version](https://img.shields.io/npm/v/flaredesk-mcp)](https://www.npmjs.com/package/flaredesk-mcp)
+
+在 Claude Desktop / Cursor / Windsurf 等支持 MCP 的 AI 工具中，用自然语言直接管理 Cloudflare DNS。
+
+**无需部署 flaredesk，只需要 CF API Token。**
+
+### 安装
 
 ```bash
-cd flaredesk-mcp
-npm install
-npm run build
+npx flaredesk-mcp
 ```
 
-在 AI 工具的 MCP 配置中添加：
+### 配置 Claude Desktop
+
+编辑 `~/Library/Application Support/Claude/claude_desktop_config.json`（Mac）：
 
 ```json
 {
   "mcpServers": {
     "flaredesk": {
-      "command": "node",
-      "args": ["/path/to/flaredesk/flaredesk-mcp/dist/index.js"],
+      "command": "npx",
+      "args": ["flaredesk-mcp"],
       "env": {
-        "CF_API_TOKEN": "你的CF API Token"
+        "CF_API_TOKEN": "你的 Cloudflare API Token"
       }
     }
   }
 }
 ```
 
-支持的操作：列出域名、查询/新增/删除 DNS 记录、批量操作、跨域名橙云切换。
+### 配置 Cursor / Windsurf
+
+在 MCP 设置中添加同样的配置即可。
+
+### 支持的操作
+
+| 工具 | 说明 |
+|------|------|
+| `list_zones` | 列出账号下所有域名 |
+| `list_dns_records` | 查看域名的 DNS 记录 |
+| `create_dns_record` | 新增 DNS 记录 |
+| `update_dns_record` | 修改 DNS 记录 |
+| `delete_dns_record` | 删除 DNS 记录 |
+| `batch_create_dns_records` | 批量新增记录（单域名） |
+| `cross_zone_create_dns_records` | 跨域名批量新增 |
+| `cross_zone_delete_records` | 跨域名批量删除 |
+| `cross_zone_toggle_proxy` | 跨域名橙云代理批量切换 |
+
+### 使用示例
+
+> "帮我把 example.com 的所有 A 记录指向 1.2.3.4"
+>
+> "列出我账号下所有域名"
+>
+> "把 zone id xxx 下的 www 记录的橙云代理开启"
 
 ---
 
