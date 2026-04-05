@@ -29,5 +29,5 @@ magic_admin_web/node_modules/
 .vscode/
 .claude/
 
-# Local drafts
-PROMOTION.md
+# Local drafts (never publish)
+drafts/
