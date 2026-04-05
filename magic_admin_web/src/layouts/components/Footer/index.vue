@@ -1,6 +1,6 @@
 <template>
   <div class="footer flx-center">
-    2025
+    2026
   </div>
 </template>
 
