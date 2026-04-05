@@ -2,6 +2,9 @@
 
 **Cloudflare DNS 批量管理面板** — 为多站站长、出海团队、大量域名运维场景而生。
 
+[![Telegram](https://img.shields.io/badge/Telegram-FlaredeskCommunity-blue?logo=telegram)](https://t.me/FlaredeskCommunity)
+[![GitHub Stars](https://img.shields.io/github/stars/urbanu619/flaredesk?style=social)](https://github.com/urbanu619/flaredesk)
+
 做 CF 控制台做不到的事：多账号统一管理、跨域名批量操作、一键橙云代理切换。
 
 **你的数据只在你自己的服务器上。** API Token 不经过任何第三方。
