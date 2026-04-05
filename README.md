@@ -2,6 +2,7 @@
 
 **Cloudflare DNS 批量管理面板** — 为多站站长、出海团队、大量域名运维场景而生。
 
+[![Website](https://img.shields.io/badge/官网-flaredesk--site.vercel.app-orange)](https://flaredesk-site.vercel.app)
 [![Telegram](https://img.shields.io/badge/Telegram-FlaredeskCommunity-blue?logo=telegram)](https://t.me/FlaredeskCommunity)
 [![GitHub Stars](https://img.shields.io/github/stars/urbanu619/flaredesk?style=social)](https://github.com/urbanu619/flaredesk)
 
