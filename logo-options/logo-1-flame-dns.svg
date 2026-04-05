@@ -1,11 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- 橙色火焰 -->
   <defs>
     <linearGradient id="flame" x1="0%" y1="100%" x2="50%" y2="0%">
       <stop offset="0%" style="stop-color:#ff6b00"/>
       <stop offset="100%" style="stop-color:#ffcc00"/>
     </linearGradient>
   </defs>
+  <!-- 火焰主体 -->
   <path d="M32 6 C26 14 20 18 22 28 C18 24 18 18 20 14 C14 20 12 30 16 38 C18 44 24 50 32 52 C40 50 46 44 48 38 C52 30 50 20 44 14 C46 18 46 24 42 28 C44 18 38 14 32 6Z" fill="url(#flame)"/>
+  <!-- DNS 连接点 -->
   <circle cx="24" cy="38" r="3" fill="white" opacity="0.9"/>
   <circle cx="32" cy="32" r="3" fill="white" opacity="0.9"/>
   <circle cx="40" cy="38" r="3" fill="white" opacity="0.9"/>
