@@ -204,6 +204,27 @@ npx flaredesk-mcp
 
 ---
 
+## Built With
+
+**后端**
+- [Gin](https://github.com/gin-gonic/gin) — Go HTTP 框架
+- [GORM](https://gorm.io) — Go ORM
+- [Viper](https://github.com/spf13/viper) — 配置管理
+- [zap](https://github.com/uber-go/zap) — 高性能日志
+
+**前端**
+- [Vue 3](https://vuejs.org) — 前端框架
+- [Element Plus](https://element-plus.org) — UI 组件库
+- [Vite](https://vitejs.dev) — 构建工具
+- [Pinia](https://pinia.vuejs.org) — 状态管理
+- [Vue Router](https://router.vuejs.org) — 路由
+
+**MCP Server**
+- [Model Context Protocol SDK](https://github.com/modelcontextprotocol/typescript-sdk) — MCP TypeScript SDK
+- [Zod](https://github.com/colinhacks/zod) — 参数校验
+
+---
+
 ## License
 
 MIT
