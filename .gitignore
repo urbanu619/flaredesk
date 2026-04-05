@@ -27,3 +27,7 @@ magic_admin_web/node_modules/
 # IDE
 .idea/
 .vscode/
+.claude/
+
+# Local drafts
+PROMOTION.md

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+    <linearGradient id="flame" x1="0%" y1="100%" x2="50%" y2="0%">
+      <stop offset="0%" style="stop-color:#ff6b00"/>
+      <stop offset="100%" style="stop-color:#ffcc00"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 深色圆形背景 -->
+  <circle cx="100" cy="100" r="100" fill="url(#bg)"/>
+
+  <!-- 火焰 -->
+  <path d="M100 30 C84 50 68 58 72 82 C62 72 62 54 68 42 C50 58 46 82 54 104 C58 118 74 134 100 138 C126 134 142 118 146 104 C154 82 150 58 132 42 C138 54 138 72 128 82 C132 58 116 50 100 30Z" fill="url(#flame)"/>
+
+  <!-- DNS 节点 -->
+  <circle cx="82" cy="108" r="6" fill="white" opacity="0.95"/>
+  <circle cx="100" cy="94" r="6" fill="white" opacity="0.95"/>
+  <circle cx="118" cy="108" r="6" fill="white" opacity="0.95"/>
+  <line x1="82" y1="108" x2="100" y2="94" stroke="white" stroke-width="2.5" opacity="0.85"/>
+  <line x1="100" y1="94" x2="118" y2="108" stroke="white" stroke-width="2.5" opacity="0.85"/>
+
+  <!-- 文字 -->
+  <text x="100" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" letter-spacing="1">Flaredesk</text>
+</svg>
