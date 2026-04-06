@@ -109,6 +109,7 @@ func setEnvDefaultConf(v *viper.Viper) {
 	})
 
 	v.SetDefault("redis", &Redis{
+		Embedded:       false,
 		Addr:           "127.0.0.1:6379",
 		Password:       "",
 		Db:             0,

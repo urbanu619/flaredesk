@@ -1,6 +1,7 @@
 package config
 
 type Redis struct {
+	Embedded       bool     `mapstructure:"embedded" json:"embedded" yaml:"embedded"`                    // true：进程内嵌 Redis（miniredis），无需单独安装 Redis 服务
 	Addr           string   `mapstructure:"addr" json:"addr" yaml:"addr"`                                // url
 	Password       string   `mapstructure:"password" json:"password" yaml:"password"`                    // 密码
 	Db             int      `mapstructure:"db" json:"db" yaml:"db"`                                      // index db

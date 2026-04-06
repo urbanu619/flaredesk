@@ -81,15 +81,12 @@ type Table struct {
 }
 
 func (s *SysCommonService) GetTables(dbAlias string) ([]Table, error) {
-	var entities []Table
-	sql := `select table_name as table_name from information_schema.tables where table_schema = ?`
 	db, err := global.BizDBByAlias(dbAlias)
 	if err != nil {
-		return entities, err
+		return nil, err
 	}
 	core.Log.Infof("dbName:%s", db.Migrator().CurrentDatabase())
-	err = db.Raw(sql, db.Migrator().CurrentDatabase()).Scan(&entities).Error
-	return entities, err
+	return MetaListTables(db)
 }
 
 // GetColumn 获取指定数据库和指定数据表的所有字段名,类型值等
@@ -103,44 +100,12 @@ type Column struct {
 }
 
 func (s *SysCommonService) GetColumn(dbAlias string, tableName string) (data []Column, err error) {
-	var entities []Column
-	sql := `
-	SELECT 
-    c.COLUMN_NAME column_name,
-    c.DATA_TYPE data_type,
-    CASE c.DATA_TYPE
-        WHEN 'longtext' THEN c.CHARACTER_MAXIMUM_LENGTH
-        WHEN 'varchar' THEN c.CHARACTER_MAXIMUM_LENGTH
-        WHEN 'double' THEN CONCAT_WS(',', c.NUMERIC_PRECISION, c.NUMERIC_SCALE)
-        WHEN 'decimal' THEN CONCAT_WS(',', c.NUMERIC_PRECISION, c.NUMERIC_SCALE)
-        WHEN 'int' THEN c.NUMERIC_PRECISION
-        WHEN 'bigint' THEN c.NUMERIC_PRECISION
-        ELSE '' 
-    END AS data_type_long,
-    c.COLUMN_COMMENT column_comment,
-    CASE WHEN kcu.COLUMN_NAME IS NOT NULL THEN 1 ELSE 0 END AS primary_key,
-    c.ORDINAL_POSITION
-FROM 
-    INFORMATION_SCHEMA.COLUMNS c
-LEFT JOIN 
-    INFORMATION_SCHEMA.KEY_COLUMN_USAGE kcu 
-ON 
-    c.TABLE_SCHEMA = kcu.TABLE_SCHEMA 
-    AND c.TABLE_NAME = kcu.TABLE_NAME 
-    AND c.COLUMN_NAME = kcu.COLUMN_NAME 
-    AND kcu.CONSTRAINT_NAME = 'PRIMARY'
-WHERE 
-    c.TABLE_NAME = ? 
-    AND c.TABLE_SCHEMA = ?
-ORDER BY 
-    c.ORDINAL_POSITION;`
 	db, err := global.BizDBByAlias(dbAlias)
 	if err != nil {
-		return entities, err
+		return nil, err
 	}
 	core.Log.Infof("dbName:%s tableName:%s", db.Migrator().CurrentDatabase(), tableName)
-	err = db.Raw(sql, tableName, db.Migrator().CurrentDatabase()).Scan(&entities).Error
-	return entities, err
+	return MetaListColumns(db, tableName)
 }
 
 func (s *SysCommonService) CheckFileJob() bool {

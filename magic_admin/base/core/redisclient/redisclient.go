@@ -4,20 +4,23 @@ import (
 	"context"
 	"crypto/tls"
 	"fmt"
+	"strings"
+	"time"
+
+	"github.com/alicebob/miniredis/v2"
 	"github.com/go-redsync/redsync/v4"
 	redsyncredis "github.com/go-redsync/redsync/v4/redis"
 	"github.com/go-redsync/redsync/v4/redis/goredis/v9"
 	"github.com/redis/go-redis/v9"
 	config2 "go_server/base/config"
 	"go_server/base/core"
-	"strings"
-	"time"
 )
 
 var (
-	defaultClient redis.UniversalClient
-	_redisSync    *redsync.Redsync
-	_redisPool    redsyncredis.Pool
+	defaultClient   redis.UniversalClient
+	_redisSync      *redsync.Redsync
+	_redisPool      redsyncredis.Pool
+	embeddedMiniRedis *miniredis.Miniredis
 )
 
 func DefaultClient() redis.UniversalClient {
@@ -65,6 +68,19 @@ var DefaultLockOptions = LockOptions{
 }
 
 func redisClientInit() {
+	if conf().Embedded {
+		mr, err := miniredis.Run()
+		if err != nil {
+			panic("embedded redis (miniredis) start failed: " + err.Error())
+		}
+		embeddedMiniRedis = mr
+		opts := &redis.Options{Addr: mr.Addr()}
+		defaultClient = redis.NewClient(opts)
+		core.Log.Info("Redis 使用进程内嵌模式 (embedded)，无需单独安装 Redis 服务")
+		_redisPool = goredis.NewPool(defaultClient)
+		_redisSync = redsync.New(_redisPool)
+		return
+	}
 	addr := conf().Addr             //viper.GetString("redis.addr")
 	password := conf().Password     //viper.GetString("redis.password")
 	db := conf().Db                 //viper.GetInt("redis.db")

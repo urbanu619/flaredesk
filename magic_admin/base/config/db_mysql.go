@@ -2,6 +2,7 @@ package config
 
 import (
 	"gorm.io/gorm/logger"
+	"path/filepath"
 	"strings"
 )
 
@@ -32,6 +33,31 @@ type GeneralDB struct {
 	MaxOpenConns int    `mapstructure:"max-open-conns" json:"max-open-conns" yaml:"max-open-conns"` // 打开到数据库的最大连接数
 	Singular     bool   `mapstructure:"singular" json:"singular" yaml:"singular"`                   // 是否开启全局禁用复数，true表示开启
 	LogZap       bool   `mapstructure:"log-zap" json:"log-zap" yaml:"log-zap"`                      // 是否通过zap写入日志文件
+	Driver       string `mapstructure:"driver" json:"driver" yaml:"driver"`                         // mysql（默认）或 sqlite
+}
+
+// UseSQLite 为 true 时使用 SQLite 单文件数据库（path/db-name 含义见 SqliteFile）。
+func (g GeneralDB) UseSQLite() bool {
+	return strings.EqualFold(strings.TrimSpace(g.Driver), "sqlite")
+}
+
+// SqliteFile 返回 SQLite 数据库文件路径：path 以 .db/.sqlite 结尾则视为完整路径，否则与 db-name 拼接为目录+文件名。
+func (g GeneralDB) SqliteFile() string {
+	p := strings.TrimSpace(g.Path)
+	if p == "" {
+		if g.Dbname == "" {
+			return "flaredesk.db"
+		}
+		return g.Dbname + ".db"
+	}
+	lower := strings.ToLower(p)
+	if strings.HasSuffix(lower, ".db") || strings.HasSuffix(lower, ".sqlite") {
+		return p
+	}
+	if g.Dbname == "" {
+		return filepath.Join(p, "flaredesk.db")
+	}
+	return filepath.Join(p, g.Dbname+".db")
 }
 
 func (c GeneralDB) LogLevel() logger.LogLevel {

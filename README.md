@@ -32,8 +32,27 @@
 
 - Go 1.21+
 - Node.js 18+
-- MySQL 5.7+
-- Redis 6+
+
+**数据库与 Redis（二选一）**
+
+| 模式 | 说明 |
+|------|------|
+| **单机极简（推荐本地试用）** | **SQLite** + **内嵌 Redis**（`redis.embedded: true`），无需单独安装 MySQL / Redis。将 `mysql.driver` 设为 `sqlite`，`path` 为存放目录、与 `db-name` 组合为 `./data/库名.db`。示例：[magic_admin/conf.d/config.sqlite.embedded.json.example](magic_admin/conf.d/config.sqlite.embedded.json.example) 复制为 `config.json` 使用。 |
+| **传统部署** | MySQL 5.7+、Redis 6+，按下方「配置后端」填写 DSN。 |
+
+> SQLite 下「从数据库逆向生成 model」功能不可用，请使用 MySQL 或手写 model。
+
+**完全零基础（Windows / macOS）分步说明**（每一步该看到什么、遇到问题怎么描述）：见 [docs/完全新手安装指南.md](docs/完全新手安装指南.md)。
+
+### 嵌入式前端（单进程 / 桌面式交付可选）
+
+后端可将 **Vite 构建产物** 用 `embed` 打进同一二进制，与 API **同源**（`/admin/api`），无需单独起 Nginx 或 Vite。
+
+1. 编辑 `magic_admin/conf.d/app.json`，设置 **`"serve-web": true`**（默认 `false`，本地开发仍建议 `npm run dev`）。
+2. 在仓库根目录执行 **`./scripts/embed-web.sh`**（将 `magic_admin_web/dist` 同步到 `magic_admin/webdist/dist` 后再编译）。
+3. `cd magic_admin && go build -o flaredesk .`，启动后浏览器访问 **`http://127.0.0.1:<addr>/`**（`<addr>` 见 `app.json` 的 `addr`，默认 `2022`）。
+
+未执行同步脚本时，仓库内仅有占位页，用于提示先构建前端。
 
 ---
 
@@ -69,7 +88,9 @@ cd flaredesk
 }
 ```
 
-> MySQL 需要提前创建数据库：`CREATE DATABASE flaredesk DEFAULT CHARACTER SET utf8mb4;`
+> **MySQL**：需要提前创建数据库：`CREATE DATABASE flaredesk DEFAULT CHARACTER SET utf8mb4;`
+>
+> **SQLite**：无需建库；确保 `path` 目录可写（如 `./data`），首次启动会自动创建 `db-name.db` 文件。
 >
 > 表结构会在首次启动时自动创建，无需手动执行 SQL。
 
@@ -137,8 +158,9 @@ server {
 ### 如何获取 CF API Token
 
 1. 登录 [Cloudflare Dashboard](https://dash.cloudflare.com/profile/api-tokens)
-2. 创建 Token，权限选择：`Zone:DNS:Edit`
-3. 将 Token 和 Account ID 填入账号管理页面
+2. 创建 Token，权限至少选择：`Zone` → `DNS` → `Edit`（用于 DNS 批量管理）。
+3. 若使用 **Origin CA 证书批量签发**，你**当前保存的** Token 还必须包含：`Zone` → `SSL and Certificates` → `Edit`。若未勾选，Cloudflare 会返回 `Authentication error`（10000），表示**该 Token 未授予**此接口所需权限，而非 Token 失效。
+4. 将 Token 和 Account ID 填入账号管理页面
 
 ---
 

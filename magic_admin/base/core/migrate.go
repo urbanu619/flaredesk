@@ -73,12 +73,16 @@ func sysDataInit(db *gorm.DB) {
 
 // migrationTable 迁移数据表
 func migrationTable(db *gorm.DB, tables []MigrateTable) {
+	dialect := db.Dialector.Name()
 	for _, table := range tables {
-		//slog.Info(fmt.Sprintf("开始迁移[%s]表", table.TableName()))
-		db = db.Set("gorm:table_options", "ENGINE=InnoDB")
-		comment := fmt.Sprintf("COMMENT='%s'", table.Comment())
-		db = db.Set("gorm:table_options", comment)
-		err := db.Migrator().AutoMigrate(table)
+		tx := db.Session(&gorm.Session{})
+		// SQLite 不支持 ENGINE / 表 COMMENT 语法，仅 MySQL 设置
+		if dialect == "mysql" {
+			tx = tx.Set("gorm:table_options", "ENGINE=InnoDB")
+			comment := fmt.Sprintf("COMMENT='%s'", table.Comment())
+			tx = tx.Set("gorm:table_options", comment)
+		}
+		err := tx.Migrator().AutoMigrate(table)
 		if err != nil {
 			Log.Error(fmt.Sprintf("[%s]表迁移失败：%s", table.TableName(), err.Error()))
 		}

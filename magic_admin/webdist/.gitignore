@@ -1,0 +1,2 @@
+# 完整构建由 scripts/embed-web.sh 生成，体积大，一般不提交；保留仓库内 dist/index.html 占位即可
+dist/assets/

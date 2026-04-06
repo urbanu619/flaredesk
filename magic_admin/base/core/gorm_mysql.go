@@ -2,6 +2,10 @@ package core
 
 import (
 	"fmt"
+	"os"
+	"path/filepath"
+
+	"github.com/glebarez/sqlite"
 	_ "github.com/go-sql-driver/mysql"
 	config2 "go_server/base/config"
 	"gorm.io/driver/mysql"
@@ -30,6 +34,9 @@ func BizDbs() (map[string]*gorm.DB, map[string]string, map[string]string) {
 }
 
 func gormMysqlByConfig(m config2.Mysql) *gorm.DB {
+	if m.UseSQLite() {
+		return gormSqliteByConfig(m)
+	}
 	dialer := mysql.New(mysql.Config{
 		DSN:                       m.Dsn(), // DSN data source name
 		DefaultStringSize:         256,     // string 类型字段的默认长度
@@ -38,7 +45,7 @@ func gormMysqlByConfig(m config2.Mysql) *gorm.DB {
 		DontSupportRenameColumn:   true,    // 用 `change` 重命名列，MySQL 8 之前的数据库和 MariaDB 不支持重命名列
 		SkipInitializeWithVersion: false,   // 根据版本自动配置
 	})
-	db, err := gorm.Open(dialer, gormConfig(m.Prefix, m.Singular))
+	db, err := gorm.Open(dialer, gormConfig(m.GeneralDB, m.Prefix, m.Singular))
 	if err != nil {
 		panic(err)
 	}
@@ -55,10 +62,29 @@ func gormMysqlByConfig(m config2.Mysql) *gorm.DB {
 	return db
 }
 
+func gormSqliteByConfig(m config2.Mysql) *gorm.DB {
+	path := m.SqliteFile()
+	if dir := filepath.Dir(path); dir != "." && dir != "" {
+		_ = os.MkdirAll(dir, 0755)
+	}
+	db, err := gorm.Open(sqlite.Open(path), gormConfig(m.GeneralDB, m.Prefix, m.Singular))
+	if err != nil {
+		panic(err)
+	}
+	sqlDB, _ := db.DB()
+	sqlDB.SetConnMaxIdleTime(20 * time.Second)
+	sqlDB.SetConnMaxLifetime(20 * time.Second)
+	sqlDB.SetMaxIdleConns(1)
+	sqlDB.SetMaxOpenConns(1)
+	err = sqlDB.Ping()
+	if err != nil {
+		panic(err)
+	}
+	return db
+}
+
 // Config gorm 自定义配置
-func gormConfig(prefix string, singular bool) *gorm.Config {
-	var general config2.GeneralDB
-	general = config2.EnvConf().Mysql.GeneralDB
+func gormConfig(general config2.GeneralDB, prefix string, singular bool) *gorm.Config {
 	return &gorm.Config{
 		Logger: logger.New(NewWriter(general), logger.Config{
 			SlowThreshold: 200 * time.Millisecond,

@@ -8,6 +8,7 @@ import (
 	"go_server/base/engine/middleware"
 	"go_server/global"
 	"go_server/router"
+	"go_server/webdist"
 	"os"
 )
 
@@ -62,6 +63,7 @@ func engineInit() *gin.Engine {
 	}
 	global.RegisterRouter(publicGroup, router.PubRouterGroupApp{})
 	global.RegisterRouter(privateGroup, router.PriRouterGroupApp{})
+	webdist.Mount(engine, config.AppConf().ServeWeb)
 	global.GVA_ROUTERS = engine.Routes()
 	return engine
 }

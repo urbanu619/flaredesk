@@ -10,6 +10,7 @@ type App struct {
 	Mod          string `mapstructure:"mod" json:"mod" yaml:"mod"`                               // 运行模式
 	RouterPrefix string `mapstructure:"router-prefix" json:"router-prefix" yaml:"router-prefix"` //  路由前缀
 	ProxyUrl     string `mapstructure:"proxy-url" json:"proxy-url" yaml:"proxy-url"`             // 业务默认代理地址
+	ServeWeb     bool   `mapstructure:"serve-web" json:"serve-web" yaml:"serve-web"`             // true：由 Go 嵌入并提供前端静态资源（webdist/dist），与 API 同源
 }
 
 func AppConf() *App {
@@ -31,6 +32,7 @@ func appConfInit() {
 	vp.SetDefault("mod", DefaultMod)
 	vp.SetDefault("router-prefix", "admin")
 	vp.SetDefault("proxy-url", fmt.Sprintf("http://127.0.0.1:%d", BizHostPort))
+	vp.SetDefault("serve-web", false)
 	handVpToFile(vp) // 文件读取 如果读取不到则生成(dev环境)
 	if err := vp.Unmarshal(&appConf); err != nil {
 		panic(err)

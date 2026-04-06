@@ -51,77 +51,13 @@ func (*Apis) DataInit(db *gorm.DB) error {
 }
 
 func (*Menus) DataInit(db *gorm.DB) error {
+	// 历史模板曾写入「红包」菜单，Flaredesk 不包含该业务：清掉遗留行（含子菜单）
+	if err := db.Where("router LIKE ?", "/redpacket%").Delete(&Menus{}).Error; err != nil {
+		return err
+	}
+
 	// 初始化菜单
 	reqs := []Menus{
-		// 红包管理主菜单
-		{
-			ParentId:    0,
-			Name:        "红包管理",
-			Icon:        "Wallet",
-			Router:      "/redpacket",
-			Sort:        1,
-			Enable:      true,
-			IsHide:      false,
-			IsFull:      false,
-			IsAffix:     false,
-			IsKeepAlive: true,
-		},
-		// 红包配置
-		{
-			ParentId:    1,
-			Name:        "红包配置",
-			Icon:        "Menu",
-			Router:      "/redpacket/config",
-			Component:   "@/views/redpacket/config/index.vue",
-			Sort:        1,
-			Enable:      true,
-			IsHide:      false,
-			IsFull:      false,
-			IsAffix:     false,
-			IsKeepAlive: true,
-		},
-		// 手动发送
-		{
-			ParentId:    1,
-			Name:        "手动发送",
-			Icon:        "Menu",
-			Router:      "/redpacket/send",
-			Component:   "@/views/redpacket/send/index.vue",
-			Sort:        2,
-			Enable:      true,
-			IsHide:      false,
-			IsFull:      false,
-			IsAffix:     false,
-			IsKeepAlive: true,
-		},
-		// 红包记录
-		{
-			ParentId:    1,
-			Name:        "红包记录",
-			Icon:        "Menu",
-			Router:      "/redpacket/record",
-			Component:   "@/views/redpacket/record/index.vue",
-			Sort:        3,
-			Enable:      true,
-			IsHide:      false,
-			IsFull:      false,
-			IsAffix:     false,
-			IsKeepAlive: true,
-		},
-		// 群组管理
-		{
-			ParentId:    1,
-			Name:        "群组管理",
-			Icon:        "Menu",
-			Router:      "/redpacket/group",
-			Component:   "@/views/redpacket/group/index.vue",
-			Sort:        4,
-			Enable:      true,
-			IsHide:      false,
-			IsFull:      false,
-			IsAffix:     false,
-			IsKeepAlive: true,
-		},
 		// 系统配置
 		{
 			ParentId:    0,
@@ -175,7 +111,7 @@ func (*Menus) DataInit(db *gorm.DB) error {
 			Name:        "Cloudflare",
 			Icon:        "Monitor",
 			Router:      "/cloudflare",
-			Sort:        2,
+			Sort:        1,
 			Enable:      true,
 			IsKeepAlive: true,
 		}
@@ -217,6 +153,15 @@ func (*Menus) DataInit(db *gorm.DB) error {
 			Router:      "/cloudflare/template",
 			Component:   "@/views/cloudflare/template/index.vue",
 			Sort:        4,
+			Enable:      true,
+			IsKeepAlive: true,
+		},
+		{
+			Name:        "Origin 证书",
+			Icon:        "Lock",
+			Router:      "/cloudflare/cert",
+			Component:   "@/views/cloudflare/cert/index.vue",
+			Sort:        5,
 			Enable:      true,
 			IsKeepAlive: true,
 		},

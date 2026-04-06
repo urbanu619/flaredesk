@@ -37,3 +37,8 @@ export const getDnsTemplate = id => http.get(`${TEMPLATE}/get`, { id });
 export const createDnsTemplate = data => http.post(`${TEMPLATE}/create`, data);
 export const updateDnsTemplate = data => http.post(`${TEMPLATE}/update`, data);
 export const deleteDnsTemplate = id => http.get(`${TEMPLATE}/delete`, { id });
+
+// ==================== Origin 证书管理 ====================
+const CERT = "/admin/api/app/cf_cert";
+export const getCfCertList = accountId => http.get(`${CERT}/list`, { account_id: accountId });
+export const batchGenerateCfCerts = data => http.download(`${CERT}/batch_generate`, data);

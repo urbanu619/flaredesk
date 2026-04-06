@@ -2,18 +2,15 @@ package cmds
 
 import (
 	"github.com/spf13/cobra"
+	"go_server/base/core"
 	"go_server/base/engine"
 )
-
-// 定时任务
 
 var apiCmd = &cobra.Command{
 	Use:   "api",
 	Short: "启动Api服务",
 	Run: func(cmd *cobra.Command, args []string) {
-		if err := cmd.Help(); err != nil {
-			panic(err)
-		}
+		core.Migrates() // 与独立 migrate 子命令相同：建表 + 基础数据（SQLite/MySQL 均需）
 		engine.Run()
 	},
 }

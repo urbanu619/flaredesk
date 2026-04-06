@@ -163,6 +163,9 @@ func (s *ModelRegister) modelTargetDir() string {
 // 获取表信息
 
 func (s *ModelRegister) getTableInfo(db *gorm.DB) (*TableInfo, error) {
+	if db.Dialector.Name() == "sqlite" {
+		return nil, fmt.Errorf("SQLite 暂不支持从数据库逆向生成模型，请使用 MySQL 或手写 model")
+	}
 	tableInfo := &TableInfo{
 		Module:     s.DbAlias,
 		TableName:  s.TableName,

@@ -24,6 +24,25 @@ magic_admin_web/node_modules/
 # Binary
 *.exe
 
+# Go：本机调试二进制、测试/覆盖率产物（勿提交）
+**/__debug_bin*
+*.test
+coverage.out
+coverage.html
+coverage.*
+*.prof
+*.coverprofile
+
+# 编辑器临时/备份
+*.swp
+*.swo
+*~
+*.tmp
+*.bak
+
+# Cursor 本地状态（若需在仓库中保留 .cursor 规则，可删此行）
+.cursor/
+
 # IDE
 .idea/
 .vscode/
