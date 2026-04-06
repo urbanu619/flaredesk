@@ -36,8 +36,6 @@ import errorHandler from "@/utils/errorHandler";
 // 自定义指令
 import addressFormat from './directives/addressFormat'
 
-// import {config} from "./contract/client.js";
-import {WagmiPlugin} from '@wagmi/vue'
 import {QueryClient, VueQueryPlugin} from "@tanstack/vue-query";
 
 const queryClient = new QueryClient()
@@ -55,6 +53,5 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 
 app.use(ElementPlus).use(router).use(I18n).use(pinia).
-  // use(WagmiPlugin, {config: config}).
   use(VueQueryPlugin, {queryClient}).
   mount("#app");
