@@ -1,0 +1,40 @@
+# 推送 / PR 时自动编译后端并构建前端，避免「本地能编、远端不能编」。
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  go:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: magic_admin
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: magic_admin/go.mod
+          cache-dependency-path: magic_admin/go.sum
+      - name: Build
+        run: go build -o /dev/null .
+      - name: Test
+        run: go test ./... -count=1
+
+  web:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: magic_admin_web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: magic_admin_web/package-lock.json
+      - name: Install & build
+        run: npm ci && npm run build

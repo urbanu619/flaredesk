@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"go_server/utils"
+	"go_server/base/core"
 )
 
 func main() {
-	sign, err := utils.BuildSignMessage()
+	sign, err := core.BuildSignMessage()
 	if err != nil {
 		fmt.Printf("Error: %v\n", err)
 		return
