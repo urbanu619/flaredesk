@@ -1,30 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flaredesk — Bulk Cloudflare DNS management panel</title>
-  <meta name="description" content="Multi-account management, cross-zone bulk operations, one-click orange-cloud proxy. Your data stays only on your own server." />
-  <meta property="og:title" content="Flaredesk — Bulk Cloudflare DNS management panel" />
-  <meta property="og:description" content="Multi-account management, cross-zone bulk operations, one-click orange-cloud proxy. Your data stays only on your own server." />
-  <meta property="og:url" content="https://flaredesk-site.vercel.app/" />
+  <title>Flaredesk — Cloudflare DNS 批量管理面板</title>
+  <meta name="description" content="多账号统一管理、跨域名批量操作、一键橙云代理切换。你的数据只在你自己的服务器上。" />
+  <meta property="og:title" content="Flaredesk — Cloudflare DNS 批量管理面板" />
+  <meta property="og:description" content="多账号统一管理、跨域名批量操作、一键橙云代理切换。你的数据只在你自己的服务器上。" />
+  <meta property="og:url" content="https://flaredesk-site.vercel.app/zh/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Flaredesk" />
-  <!-- Bump ?v= when replacing og-image.png so crawlers fetch the new asset -->
+  <!-- 更换 og-image.png 时请把 ?v= 版本号 +1，便于各平台重新抓取 -->
   <meta property="og:image" content="https://flaredesk-site.vercel.app/og-image.png?v=1" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:locale" content="en_US" />
-  <meta property="og:locale:alternate" content="zh_CN" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta property="og:locale:alternate" content="en_US" />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Flaredesk — Bulk Cloudflare DNS management panel" />
-  <meta name="twitter:description" content="Multi-account management, cross-zone bulk operations, one-click orange-cloud proxy. Your data stays only on your own server." />
+  <meta name="twitter:title" content="Flaredesk — Cloudflare DNS 批量管理面板" />
+  <meta name="twitter:description" content="多账号统一管理、跨域名批量操作、一键橙云代理切换。你的数据只在你自己的服务器上。" />
   <meta name="twitter:image" content="https://flaredesk-site.vercel.app/og-image.png?v=1" />
-  <link rel="canonical" href="https://flaredesk-site.vercel.app/" />
+  <link rel="canonical" href="https://flaredesk-site.vercel.app/zh/" />
   <link rel="alternate" hreflang="zh-CN" href="https://flaredesk-site.vercel.app/zh/" />
   <link rel="alternate" hreflang="en" href="https://flaredesk-site.vercel.app/" />
   <link rel="alternate" hreflang="x-default" href="https://flaredesk-site.vercel.app/" />
-  <link rel="icon" href="logo.svg" type="image/svg+xml" />
+  <link rel="icon" href="../logo.svg" type="image/svg+xml" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -54,7 +54,7 @@
       overflow-x: hidden;
     }
 
-    /* Top bar only — do not use bare `nav {}` or the bottom `.mobile-nav` inherits top:0 and hides under this bar */
+    /* 仅顶栏 — 勿用裸 `nav {}`，否则底部 `.mobile-nav` 会继承 top:0 被顶栏盖住 */
     .site-nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
@@ -327,7 +327,6 @@
     }
     .step-content p + p { margin-top: 14px; }
 
-    /* Mobile: bottom anchor bar (when top nav links are hidden) */
     .mobile-nav {
       display: none;
     }
@@ -417,19 +416,19 @@
 <!-- NAV -->
 <nav class="site-nav">
   <div class="nav-logo">
-    <img src="logo.svg" alt="Flaredesk" />
+    <img src="../logo.svg" alt="Flaredesk" />
     Flaredesk
   </div>
   <div class="nav-right">
     <div class="nav-links">
-      <a href="#features">Features</a>
-      <a href="#compare">Compare</a>
+      <a href="#features">功能</a>
+      <a href="#compare">对比</a>
       <a href="#mcp">MCP</a>
-      <a href="#deploy">Deploy</a>
+      <a href="#deploy">部署</a>
     </div>
-    <div class="lang-switch" role="group" aria-label="Language">
-      <a class="lang-switch-link" href="/zh/" hreflang="zh-CN" lang="zh-Hans">中文</a>
-      <span class="lang-switch-current" lang="en">EN</span>
+    <div class="lang-switch" role="group" aria-label="语言切换">
+      <span class="lang-switch-current" lang="zh-Hans">中文</span>
+      <a class="lang-switch-link" href="/" hreflang="en" lang="en">EN</a>
     </div>
     <a href="https://github.com/urbanu619/flaredesk" class="nav-btn" target="_blank" rel="noopener">GitHub ★</a>
   </div>
@@ -437,90 +436,90 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-badge">🔥 Open source · Self-hosted</div>
-  <h1><span>Cloudflare DNS</span><br><span class="hero-h1-accent">Bulk management panel</span></h1>
-  <p class="hero-sub">Multi-account management, cross-zone bulk operations, one-click orange-cloud proxy.<br>Do what the official CF dashboard cannot.</p>
+  <div class="hero-badge">🔥 开源免费 · 自托管</div>
+  <h1><span>Cloudflare DNS</span><br><span class="hero-h1-accent">批量管理面板</span></h1>
+  <p class="hero-sub">多账号统一管理、跨域名批量操作、一键橙云代理切换。<br>做 CF 官方控制台做不到的事。</p>
   <div class="hero-cta">
-    <a href="https://github.com/urbanu619/flaredesk" class="btn-primary" target="_blank" rel="noopener">⭐ Get on GitHub</a>
-    <a href="#deploy" class="btn-outline">Quick deploy →</a>
+    <a href="https://github.com/urbanu619/flaredesk" class="btn-primary" target="_blank" rel="noopener">⭐ GitHub 获取</a>
+    <a href="#deploy" class="btn-outline">快速部署 →</a>
   </div>
-  <p class="hero-note"><span>✓</span> Data only on your server &nbsp;·&nbsp; <span>✓</span> API token never via third parties &nbsp;·&nbsp; <span>✓</span> MIT License</p>
+  <p class="hero-note"><span>✓</span> 数据只在你自己的服务器 &nbsp;·&nbsp; <span>✓</span> API Token 不经过第三方 &nbsp;·&nbsp; <span>✓</span> MIT License</p>
 </section>
 
 <!-- FEATURES -->
 <section id="features">
-  <p class="section-label">Core features</p>
-  <h2 class="section-title">One panel for every domain</h2>
-  <p class="section-sub">Built for multi-site owners, global teams, and large-scale DNS operations</p>
+  <p class="section-label">核心功能</p>
+  <h2 class="section-title">一个面板，管理所有域名</h2>
+  <p class="section-sub">为多站站长、出海团队、大量域名运维场景而生</p>
 
   <div class="features-grid">
     <div class="feature-card">
       <div class="feature-icon">👤</div>
-      <h3>Multi-account</h3>
-      <p>Keep multiple Cloudflare accounts in one dashboard—same session, no logging out to switch.</p>
+      <h3>多账号管理</h3>
+      <p>多个 Cloudflare 账号在同一面板、同一会话内并存，无需反复切换登录。</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">🌐</div>
-      <h3>Zone sync</h3>
-      <p>Sync all zones from Cloudflare in one click, with fast search—hundreds of zones in seconds.</p>
+      <h3>Zone 列表同步</h3>
+      <p>一键从 CF 同步所有域名到本地，支持快速检索，百个域名秒定位。</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">⚡</div>
-      <h3>Cross-zone bulk add</h3>
-      <p>Apply the same DNS record to many zones at once—bulk work in seconds.</p>
+      <h3>跨域名批量新增</h3>
+      <p>同一条 DNS 记录，同时应用到多个域名，批量操作秒完成。</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">🗑️</div>
-      <h3>Cross-zone bulk delete</h3>
-      <p>Clean DNS records by type or name across zones—ops efficiency doubled.</p>
+      <h3>跨域名批量删除</h3>
+      <p>按类型、名称批量清理多个域名的 DNS 记录，运维效率翻倍。</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">🟠</div>
-      <h3>Bulk orange-cloud toggle</h3>
-      <p>Turn Cloudflare proxy (orange cloud) on or off for many zones in one go.</p>
+      <h3>橙云代理批量切换</h3>
+      <p>一键开启/关闭多个域名的 CF 代理（橙云），迁移维护更轻松。</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">📋</div>
-      <h3>DNS templates</h3>
-      <p>Save common record sets and apply them to many zones—faster launches.</p>
+      <h3>DNS 模板</h3>
+      <p>保存常用记录组合，一键应用到多个域名，新站上线更快。</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">🤖</div>
       <h3>MCP Server</h3>
-      <p>Manage DNS in natural language from Claude, Cursor, and more. No panel deploy—just <code>npx flaredesk-mcp</code> and your API token.</p>
+      <p>在 Claude / Cursor 等 AI 工具中直接用自然语言管理 DNS。无需部署面板，<code>npx flaredesk-mcp</code> 与 API Token 即可。</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">🔒</div>
-      <h3>Self-hosted data</h3>
-      <p>All data on your server; API tokens never pass through any third party.</p>
+      <h3>数据自托管</h3>
+      <p>所有数据存在你自己的服务器，API Token 不经过任何第三方。</p>
     </div>
   </div>
 </section>
 
 <!-- COMPARE -->
 <section id="compare" class="compare-section">
-  <p class="section-label">Compare</p>
-  <h2 class="section-title">vs Cloudflare official dashboard</h2>
-  <p class="section-sub">Everything the official UI can do, we can too—and more that it cannot</p>
+  <p class="section-label">对比</p>
+  <h2 class="section-title">vs Cloudflare 官方控制台</h2>
+  <p class="section-sub">官方控制台能做到的，我们都能做；它做不到的，我们也能做</p>
 
   <div class="compare-table">
     <table>
       <thead>
         <tr>
-          <th>Feature</th>
-          <th>CF official</th>
+          <th>功能</th>
+          <th>CF 官方控制台</th>
           <th>Flaredesk ✦</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td>Single-zone DNS</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-        <tr><td>All accounts in one panel (same session)</td><td class="no">✗</td><td class="yes">✓</td></tr>
-        <tr><td>Cross-zone bulk add</td><td class="no">✗</td><td class="yes">✓</td></tr>
-        <tr><td>Cross-zone bulk delete</td><td class="no">✗</td><td class="yes">✓</td></tr>
-        <tr><td>Bulk orange cloud</td><td class="no">✗</td><td class="yes">✓</td></tr>
-        <tr><td>DNS templates</td><td class="no">✗</td><td class="yes">✓</td></tr>
-        <tr><td>AI natural language (MCP)</td><td class="no">✗</td><td class="yes">✓</td></tr>
-        <tr><td>Fully self-hosted</td><td class="no">✗</td><td class="yes">✓</td></tr>
+        <tr><td>单域名 DNS 管理</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+        <tr><td>多账号同屏并存（单一会话，免反复切换登录）</td><td class="no">✗</td><td class="yes">✓</td></tr>
+        <tr><td>跨域名批量新增记录</td><td class="no">✗</td><td class="yes">✓</td></tr>
+        <tr><td>跨域名批量删除记录</td><td class="no">✗</td><td class="yes">✓</td></tr>
+        <tr><td>批量橙云代理切换</td><td class="no">✗</td><td class="yes">✓</td></tr>
+        <tr><td>DNS 模板复用</td><td class="no">✗</td><td class="yes">✓</td></tr>
+        <tr><td>AI 自然语言操作 (MCP)</td><td class="no">✗</td><td class="yes">✓</td></tr>
+        <tr><td>数据完全自托管</td><td class="no">✗</td><td class="yes">✓</td></tr>
       </tbody>
     </table>
   </div>
@@ -528,9 +527,9 @@
 
 <!-- MCP -->
 <section id="mcp" class="mcp-section">
-  <p class="section-label">AI integration</p>
-  <h2 class="section-title">Manage DNS in natural language</h2>
-  <p class="section-sub">Works with Claude Desktop, Cursor, Windsurf, and any MCP client</p>
+  <p class="section-label">AI 集成</p>
+  <h2 class="section-title">用自然语言管理 DNS</h2>
+  <p class="section-sub">支持 Claude Desktop、Cursor、Windsurf 等所有 MCP 客户端</p>
 
   <div class="mcp-demo">
     <div class="mcp-demo-bar">
@@ -540,17 +539,17 @@
       <span>Claude Desktop — flaredesk MCP</span>
     </div>
     <div class="mcp-demo-body">
-      <p class="chat-user">🧑 Set www A for example.com to 1.2.3.4 and enable orange cloud</p>
-      <p class="chat-tool">🔧 update_dns_record({ zone_id: "xxx", record_id: "yyy", content: "1.2.3.4", proxied: true })</p>
-      <p class="chat-ai">✅ Done. www A for example.com is 1.2.3.4, orange cloud on.</p>
-      <p class="chat-user">🧑 List all zones under my accounts</p>
-      <p class="chat-tool">🔧 list_zones({})</p>
-      <p class="chat-result">Returned 47 zones: example.com, yourdomain.io, shop.site ...</p>
+      <p class="chat-user">🧑 帮我把 example.com 的 www A 记录改成指向 1.2.3.4，并开启橙云代理</p>
+      <p class="chat-tool">🔧 调用 update_dns_record({ zone_id: "xxx", record_id: "yyy", content: "1.2.3.4", proxied: true })</p>
+      <p class="chat-ai">✅ 已完成！example.com 的 www A 记录已更新为 1.2.3.4，橙云代理已开启。</p>
+      <p class="chat-user">🧑 列出我所有账号下的域名</p>
+      <p class="chat-tool">🔧 调用 list_zones({})</p>
+      <p class="chat-result">返回 47 个域名：example.com, yourdomain.io, shop.site ...</p>
     </div>
   </div>
 
   <div style="text-align:center; margin-top: 40px;">
-    <p style="color: var(--muted); margin-bottom: 16px; font-size: 15px;">One command to install—no server deploy required</p>
+    <p style="color: var(--muted); margin-bottom: 16px; font-size: 15px;">一行命令安装，无需部署服务器</p>
     <div style="display:inline-block; background: #0d1117; border: 1px solid var(--border); border-radius: 10px; padding: 12px 24px; font-family: monospace; font-size: 15px;">
       <span style="color: var(--muted);">$</span> npx flaredesk-mcp
     </div>
@@ -559,45 +558,45 @@
 
 <!-- HOW IT WORKS -->
 <section id="deploy">
-  <p class="section-label">Quick deploy</p>
-  <h2 class="section-title">Five steps to go live</h2>
-  <p class="section-sub">Go 1.21+, Vue 3; SQLite + embedded Redis (no separate MySQL/Redis), or classic MySQL + Redis</p>
+  <p class="section-label">快速部署</p>
+  <h2 class="section-title">5 步上线</h2>
+  <p class="section-sub">Go 1.21+、Vue3；数据库可选 SQLite + 内嵌 Redis（免装 MySQL/Redis 服务），或 MySQL + Redis 传统部署</p>
 
   <div class="steps">
     <div class="step">
       <div class="step-num">1</div>
       <div class="step-content">
-        <h3>Clone</h3>
+        <h3>克隆代码</h3>
         <p><code>git clone https://github.com/urbanu619/flaredesk.git</code></p>
       </div>
     </div>
     <div class="step">
       <div class="step-num">2</div>
       <div class="step-content">
-        <h3>Backend config</h3>
-        <p><strong class="deploy-path-title">SQLite path (try)</strong>Copy <code>magic_admin/conf.d/config.sqlite.embedded.json.example</code> to <code>config.json</code> for SQLite + embedded Redis—no separate MySQL/Redis services, and <strong>no</strong> <code>CREATE DATABASE</code> step.</p>
-        <p><strong class="deploy-path-title">MySQL path (production)</strong>Fill in MySQL and Redis in <code>config.json</code> (embedded Redis is still optional). For MySQL, create the database first: <code>CREATE DATABASE flaredesk DEFAULT CHARACTER SET utf8mb4;</code></p>
+        <h3>配置后端</h3>
+        <p><strong class="deploy-path-title">SQLite 试用路径</strong>将 <code>magic_admin/conf.d/config.sqlite.embedded.json.example</code> 复制为 <code>config.json</code>，使用 SQLite + 内嵌 Redis，无需单独安装 MySQL / Redis，也<strong>不需要</strong>执行 <code>CREATE DATABASE</code>。</p>
+        <p><strong class="deploy-path-title">MySQL 生产路径</strong>在 <code>config.json</code> 中填写 MySQL 与 Redis（可继续使用内嵌 Redis）。若使用 MySQL，需先建库：<code>CREATE DATABASE flaredesk DEFAULT CHARACTER SET utf8mb4;</code></p>
       </div>
     </div>
     <div class="step">
       <div class="step-num">3</div>
       <div class="step-content">
-        <h3>Start backend</h3>
-        <p><code>cd magic_admin && go run main.go api</code><br>First run creates tables, menus, and the admin account.</p>
+        <h3>启动后端</h3>
+        <p><code>cd magic_admin && go run main.go api</code><br>首次启动自动建表、初始化菜单和管理员账号。</p>
       </div>
     </div>
     <div class="step">
       <div class="step-num">4</div>
       <div class="step-content">
-        <h3>Build frontend</h3>
-        <p>Node.js 18+ required: <code>cd magic_admin_web && npm install && npm run build</code><br>Output in <code>dist/</code> (e.g. Nginx); or embed the UI in the binary with API same-origin (<code>serve-web: true</code>)—see <a href="https://github.com/urbanu619/flaredesk#readme" target="_blank" rel="noopener">README</a> (English) or <a href="https://github.com/urbanu619/flaredesk/blob/main/README.zh-CN.md" target="_blank" rel="noopener">README.zh-CN.md</a>.</p>
+        <h3>构建前端</h3>
+        <p>需 Node.js 18+：<code>cd magic_admin_web && npm install && npm run build</code><br>产物在 <code>dist/</code>，可由 Nginx 托管；也可将前端嵌入后端二进制、与 API 同源访问（<code>serve-web: true</code>，见仓库 <a href="https://github.com/urbanu619/flaredesk#readme" target="_blank" rel="noopener">README</a>（默认英文）或 <a href="https://github.com/urbanu619/flaredesk/blob/main/README.zh-CN.md" target="_blank" rel="noopener">README.zh-CN.md</a>）。</p>
       </div>
     </div>
     <div class="step">
       <div class="step-num">5</div>
       <div class="step-content">
-        <h3>Add CF account</h3>
-        <p>Log in with default <code>superman / 666666</code>, change password, open Account management, add your Cloudflare API token. Step-by-step guides: <a href="https://github.com/urbanu619/flaredesk/blob/main/docs/完全新手安装指南.md" target="_blank" rel="noopener">docs/完全新手安装指南.md</a> (中文) · <a href="https://github.com/urbanu619/flaredesk/blob/main/docs/beginner-install.md" target="_blank" rel="noopener">docs/beginner-install.md</a> (English).</p>
+        <h3>添加 CF 账号</h3>
+        <p>用默认账号 <code>superman / 666666</code> 登录后修改密码，进入「账号管理」添加 Cloudflare API Token，开始使用。零基础分步说明见 GitHub <a href="https://github.com/urbanu619/flaredesk/blob/main/docs/完全新手安装指南.md" target="_blank" rel="noopener">docs/完全新手安装指南.md</a>（中文）· <a href="https://github.com/urbanu619/flaredesk/blob/main/docs/beginner-install.md" target="_blank" rel="noopener">docs/beginner-install.md</a>（English）。</p>
       </div>
     </div>
   </div>
@@ -605,11 +604,11 @@
 
 <!-- CTA -->
 <section class="cta-section">
-  <h2>Free, open source, ready to use</h2>
-  <p>If Flaredesk helps you, a ⭐ Star helps others find it</p>
+  <h2>免费开源，立即上手</h2>
+  <p>如果 Flaredesk 对你有帮助，欢迎点一个 ⭐ Star，让更多人发现它</p>
   <div class="cta-btns">
-    <a href="https://github.com/urbanu619/flaredesk" class="btn-primary" target="_blank" rel="noopener">⭐ Star on GitHub</a>
-    <a href="https://t.me/FlaredeskCommunity" class="btn-outline" target="_blank" rel="noopener">💬 Join Telegram</a>
+    <a href="https://github.com/urbanu619/flaredesk" class="btn-primary" target="_blank" rel="noopener">⭐ 去 GitHub Star</a>
+    <a href="https://t.me/FlaredeskCommunity" class="btn-outline" target="_blank" rel="noopener">💬 加入 Telegram 群</a>
   </div>
 </section>
 
@@ -623,11 +622,11 @@
   <p>© 2026 Flaredesk · MIT License · Built with ❤️ for DNS operators</p>
 </footer>
 
-<nav class="mobile-nav" aria-label="Section menu">
-  <a href="#features">Features</a>
-  <a href="#compare">Compare</a>
+<nav class="mobile-nav" aria-label="章节导航菜单">
+  <a href="#features">功能</a>
+  <a href="#compare">对比</a>
   <a href="#mcp">MCP</a>
-  <a href="#deploy">Deploy</a>
+  <a href="#deploy">部署</a>
 </nav>
 
 </body>
