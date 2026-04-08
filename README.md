@@ -12,6 +12,8 @@
 
 > 如果这个项目对你有帮助，欢迎点一个 ⭐ Star，让更多人发现它。
 
+**最快试用：** 将 [`magic_admin/conf.d/config.sqlite.embedded.json.example`](magic_admin/conf.d/config.sqlite.embedded.json.example) 复制为 `magic_admin/conf.d/config.json`，即可使用 **SQLite + 内嵌 Redis**，无需单独安装 MySQL / Redis。然后按下方 [部署步骤](#部署步骤) 启动；零基础分步见 [`docs/完全新手安装指南.md`](docs/完全新手安装指南.md)。
+
 ---
 
 ## 功能

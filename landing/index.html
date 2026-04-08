@@ -364,7 +364,7 @@
 <section id="deploy">
   <p class="section-label">快速部署</p>
   <h2 class="section-title">5 步上线</h2>
-  <p class="section-sub">Go + Vue3 + MySQL + Nginx，20 分钟完成部署</p>
+  <p class="section-sub">Go 1.21+、Vue3；数据库可选 SQLite + 内嵌 Redis（免装 MySQL/Redis 服务），或 MySQL + Redis 传统部署</p>
 
   <div class="steps">
     <div class="step">
@@ -377,9 +377,9 @@
     <div class="step">
       <div class="step-num">2</div>
       <div class="step-content">
-        <h3>配置数据库</h3>
-        <p>编辑 <code>magic_admin/conf.d/config.json</code>，填写 MySQL/Redis 连接信息。<br>
-        提前创建数据库：<code>CREATE DATABASE flaredesk DEFAULT CHARACTER SET utf8mb4;</code></p>
+        <h3>配置后端</h3>
+        <p><strong>试用（推荐）：</strong>将 <code>magic_admin/conf.d/config.sqlite.embedded.json.example</code> 复制为 <code>config.json</code>，使用 SQLite + 内嵌 Redis，无需单独安装 MySQL / Redis。<br>
+        <strong>生产：</strong>在 <code>config.json</code> 中配置 MySQL 与 Redis（或继续使用内嵌 Redis）；MySQL 需先建库：<code>CREATE DATABASE flaredesk DEFAULT CHARACTER SET utf8mb4;</code></p>
       </div>
     </div>
     <div class="step">
@@ -394,15 +394,15 @@
       <div class="step-num">4</div>
       <div class="step-content">
         <h3>构建前端</h3>
-        <p><code>cd magic_admin_web && npm install && npm run build</code><br>
-        产物在 <code>dist/</code>，用 Nginx 托管。</p>
+        <p>需 Node.js 18+：<code>cd magic_admin_web && npm install && npm run build</code><br>
+        产物在 <code>dist/</code>，可由 Nginx 托管；也可将前端嵌入后端二进制、与 API 同源访问（<code>serve-web: true</code>，见仓库 README）。</p>
       </div>
     </div>
     <div class="step">
       <div class="step-num">5</div>
       <div class="step-content">
         <h3>添加 CF 账号</h3>
-        <p>用默认账号 <code>superman / 666666</code> 登录后修改密码，进入「账号管理」添加 Cloudflare API Token，开始使用。</p>
+        <p>用默认账号 <code>superman / 666666</code> 登录后修改密码，进入「账号管理」添加 Cloudflare API Token，开始使用。零基础分步说明见 GitHub <code>docs/完全新手安装指南.md</code>。</p>
       </div>
     </div>
   </div>
